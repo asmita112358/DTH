@@ -1,0 +1,42 @@
+---
+title: "DHT_vignette"
+author: "Asmita Roy"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+source("~/Downloads/Dispersion/pvalue_combinations_v2/DHT.R")
+```
+
+We implement DHT on sparrows data and Tikus Coral Data. Input the groupwise data as a list in the function \texttt{DHT.pval()}. The function uses all but 2 cores of your machine for parallel computation of permutation p-values, so please adjust external wrapper accordingly. You can manually adjust the number of cores used in the permutation by editing the process_permutation function in the function perm_final(). If Euclidean distance is used, the cailliez function will issue a warning - "Warning: Euclidean distance found : no correction needed" - you can ignore this.
+\section{Sparrows Data}
+```{r}
+DATA <- read.table("sparrows.csv", sep = ";", dec = ".", header=TRUE);
+
+
+# Standardized data
+DATA[,1:5] <- scale(DATA[,1:5])
+ident.sparrows <- DATA$status
+group1 = DATA %>% filter(status == "Survived") %>% select(-status)
+group2 = DATA %>% filter(status == "Non-survived")%>% select(-status)
+DHT.pval(list(group1, group2), n.perm = 999, distance = "euclidean", binary = FALSE)
+
+```
+\section{Tikus Coral Data}
+```{r}
+load("tikus.RData")
+group = list()
+group[[1]] = tikus$abund[tikus$x$time == 81,]
+group[[2]] = tikus$abund[tikus$x$time == 83,]
+group[[3]] = tikus$abund[tikus$x$time == 84,]
+group[[3]] = tikus$abund[tikus$x$time == 85,]
+group[[4]] = tikus$abund[tikus$x$time == 87,]
+group[[5]] = tikus$abund[tikus$x$time == 84,]
+DHT.pval(group, n.perm = 999, distance = "bray", binary = FALSE)
+```
+
