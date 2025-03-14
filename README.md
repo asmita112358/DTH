@@ -1,5 +1,5 @@
-# DHT
-Codes for implementing and replicating all simulations in "DHT:  nonparametric test for homogeneity of multivariate dispersions"
+# DTH
+Codes for implementing and replicating all simulations in "DTH:  nonparametric test for homogeneity of multivariate dispersions"
 
 1. The folder DHT_simluations contains all simulation codes and results used in the paper.
 2. The folder DHT contains the following:
