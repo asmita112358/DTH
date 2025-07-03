@@ -1,0 +1,11 @@
+Package: DTH
+Title: Implement a distance-based test for homogeneity of mutivariate and high dimensional data
+Version: 0.1
+Authors@R: person(given = "Asmita", family = "Roy",role = c("aut", "cre") , email = "asmita112358@gmail.com")
+Maintainer: Asmita Roy <asmita112358@gmail.com>
+Description: Inputs a distance matrix and its corresponding group identifiers, returns a p value for a distance based test for heterogeneity. Useful when the used wants to check homogneeity assumptions between two or more groups of microbiome/multivariate data.
+Imports: stats, Rfast, vegan, dplyr, parallel, ade4, data.table, pcaPP, transport
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
