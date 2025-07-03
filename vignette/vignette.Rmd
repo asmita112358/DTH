@@ -1,0 +1,38 @@
+---
+title: "Vignette for DTH"
+author: "Asmita Roy"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set()
+```
+
+```{r}
+library(DTH)
+```
+
+In this vignette we implement the DTH package on the Sparrows data and the Tikus Coral Data. If the distance object is Euclidean, the function will issue a warning ``Warning: Euclidean distance found : no correction
+needed” - this simply means that there is no cailiez correction required when centering the distance matrix. This is expected.
+
+\section{Sparrows Data}
+
+```{r}
+DATA <- read.table("sparrows.csv", sep = ";", dec = ".", header=TRUE);
+# Standardized data
+DATA[,1:5] <- scale(DATA[,1:5])
+ident.sparrows <- DATA$status
+##Important step: convert character identifiers to numeric
+ident <- as.factor(match(ident.sparrows, unique(ident.sparrows)))
+D = vegan::vegdist(DATA[,1:5], method = "euclidean")
+DTH(D, ident, ncores = 10)
+```
+\section{Tikus Coral Data}
+```{r}
+load("tikus.RData")
+ident = factor(match(tikus$x$time, unique(tikus$x$time))) #convert identifiers to numeric factors
+abund = tikus$abund
+D = vegan::vegdist(abund, method = "bray")
+DTH(D, ident, center = "centroid", ncores = 10)
+```
